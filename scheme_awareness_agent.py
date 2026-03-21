@@ -64,11 +64,14 @@ class CollectionAgent(Agent):
             llm=openai.LLM(model="gpt-4o"),
             
             # Bulbul TTS - Converts text to speech
-            tts=sarvam.TTS(
-                target_language_code="en-IN",
-                model="bulbul:v3",
-                speaker="aditya"  # Professional male voice
-            ),
+            tts = sarvam.TTS(
+                 target_language_code="en-IN",
+                 model="bulbul:v3",
+                 speaker="ishita",
+                 pace=0.9,            # Slightly slower for better understanding
+                 speech_sample_rate=24000  # 8000, 16000, 22050, 24000 Hz (default). v3 REST API also supports 32000, 44100, 48000 Hz
+                    )
+,
         )
     
     async def on_enter(self):
