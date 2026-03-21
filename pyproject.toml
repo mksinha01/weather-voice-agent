@@ -10,4 +10,6 @@ dependencies = [
     "livekit-plugins-sarvam>=1.4.0",
     "python-dotenv>=1.2.2",
     "sarvamai>=0.1.27",
+    "fastapi>=0.115.0",
+    "uvicorn[standard]>=0.29.0",
 ]

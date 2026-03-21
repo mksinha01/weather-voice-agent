@@ -1,0 +1,40 @@
+{
+    "chat.tools.terminal.autoApprove": {
+        "/^& \"c:/SSD WINDOW/code/weather-voice-agent/\\.venv/Scripts/python\\.exe\" scheme_awareness_agent\\.py$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^& \"c:/SSD WINDOW/code/weather-voice-agent/\\.venv/Scripts/python\\.exe\" scheme_awareness_agent\\.py console$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^& \"c:/SSD WINDOW/code/weather-voice-agent/\\.venv/Scripts/python\\.exe\" -m uvicorn server\\.app:app --host 0\\.0\\.0\\.0 --port 8001$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^& \"c:/SSD WINDOW/code/weather-voice-agent/\\.venv/Scripts/python\\.exe\" scheme_awareness_agent\\.py start --room gov-schemes$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^& \"c:/SSD WINDOW/code/weather-voice-agent/\\.venv/Scripts/python\\.exe\" scheme_awareness_agent\\.py start$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^& \"c:/SSD WINDOW/code/weather-voice-agent/\\.venv/Scripts/python\\.exe\" scheme_awareness_agent\\.py start --http-port 8090$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^& \"c:/SSD WINDOW/code/weather-voice-agent/\\.venv/Scripts/python\\.exe\" scheme_awareness_agent\\.py start --help$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^tasklist /FI \"PID eq 2544\"$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^tasklist /FI \"PID eq 20512\"$/": {
+            "approve": true,
+            "matchCommandLine": true
+        }
+    }
+}
