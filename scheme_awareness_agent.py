@@ -63,10 +63,10 @@ class GovernmentSchemeAgent(Agent):
             tts=sarvam.TTS(
                 target_language_code="hi-IN",
                 model="bulbul:v3",
-                speaker="ritu",
-                pace=0.95,               # 👈 Slightly slower = more human
-                temperature=0.7,         # 👈 Higher = more natural variation
-                loudness=1.2,            # 👈 Slightly louder = more confident
+                speaker="kabir",
+                pace=0.85,               # 👈 Slightly slower = more human
+                temperature=0.5,         # 👈 Higher = more natural variation
+                loudness=1,            # 👈 Slightly louder = more confident
                 enable_preprocessing=True  # 👈 Better number/date handling
             ),
         )
