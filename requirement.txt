@@ -1,0 +1,4 @@
+livekit-agents>=0.12.0
+livekit-plugins-sarvam
+livekit-plugins-openai
+python-dotenv

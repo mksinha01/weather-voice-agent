@@ -1748,6 +1748,22 @@ wheels = [
 ]
 
 [[package]]
+name = "sarvamai"
+version = "0.1.27"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "httpx" },
+    { name = "pydantic" },
+    { name = "pydantic-core" },
+    { name = "typing-extensions" },
+    { name = "websockets" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/02/ee/98b9255bb47d893687e255885db531e6b3f695031a74d7e5359f7a9e8216/sarvamai-0.1.27.tar.gz", hash = "sha256:b614cabab46d035f8937db4df4786f736438f82d1cd6f37446fb748f3bc6e1d2", size = 136819, upload-time = "2026-03-13T06:03:02.796Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/54/c6/d5d8f6d551029821b17dcbe8d40234318b9227dced68221b63525e493db3/sarvamai-0.1.27-py3-none-any.whl", hash = "sha256:70db8c343e4c4aea9c0eb69661d7060ae7b99828716ee562769568b266e0a697", size = 265697, upload-time = "2026-03-13T06:03:01.3Z" },
+]
+
+[[package]]
 name = "shellingham"
 version = "1.5.4"
 source = { registry = "https://pypi.org/simple" }
@@ -1952,13 +1968,19 @@ version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
     { name = "livekit-agents", extra = ["openai", "sarvam", "silero"] },
+    { name = "livekit-plugins-openai" },
+    { name = "livekit-plugins-sarvam" },
     { name = "python-dotenv" },
+    { name = "sarvamai" },
 ]
 
 [package.metadata]
 requires-dist = [
-    { name = "livekit-agents", extras = ["openai", "sarvam", "silero"], specifier = ">=1.5.0" },
+    { name = "livekit-agents", extras = ["openai", "sarvam", "silero"], specifier = ">=0.12.0" },
+    { name = "livekit-plugins-openai", specifier = ">=1.5.0" },
+    { name = "livekit-plugins-sarvam", specifier = ">=1.5.0" },
     { name = "python-dotenv", specifier = ">=1.2.2" },
+    { name = "sarvamai", specifier = ">=0.1.27" },
 ]
 
 [[package]]

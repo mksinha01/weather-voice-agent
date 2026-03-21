@@ -1,6 +1,6 @@
 import logging
 from dotenv import load_dotenv
-from livekit.agents import JobContext, WorkerOptions, cli
+from livekit.agents import JobContext, WorkerOptions, cli, RoomInputOptions
 from livekit.agents.voice import Agent, AgentSession
 from livekit.plugins import openai, sarvam
 
@@ -8,89 +8,88 @@ from livekit.plugins import openai, sarvam
 load_dotenv()
 
 # Set up logging
-logger = logging.getLogger("collection-agent")
+logger = logging.getLogger("scheme-awareness-agent")
 logger.setLevel(logging.INFO)
 
 
-class CollectionAgent(Agent):
+class GovernmentSchemeAgent(Agent):
     def __init__(self) -> None:
         super().__init__(
-            # Collection agent personality and instructions
             instructions="""
-                You are a professional and empathetic collection agent working for ABC Bank.
-                
-                Customer Account Details:
-                - Bank Name: ABC Bank
-                - EMI Amount: ₹5,000
-                - Due Date: 15th January 2025
-                - Loan Type: Personal Loan
-                - Account Status: Payment Overdue
+                You are a helpful government scheme awareness assistant designed to help Indian citizens 
+                understand and access various government welfare schemes and programs.
                 
                 Your responsibilities:
-                - Remind customers about their pending EMI payment of ₹5,000 which was due on 15th January
-                - Provide information about payment due dates, amounts, and available payment methods
-                - Help customers understand their payment options and any applicable late fees
-                - Guide customers through the payment process if they want to pay immediately
-                - Address customer concerns about their account with empathy
-                - Offer payment plans or extensions when appropriate (mention that you can connect them with a specialist)
+                - Explain government schemes in simple, easy-to-understand language
+                - Help citizens determine their eligibility for various schemes
+                - Provide information about required documents for applications
+                - Guide users through the application process step by step
+                - Answer questions about scheme benefits, deadlines, and procedures
+                - Suggest relevant schemes based on user's situation (farmer, student, senior citizen, etc.)
                 
-                Payment Methods to mention:
-                - UPI payment to ABC Bank
-                - Net Banking
-                - ABC Bank mobile app
-                - Visit nearest ABC Bank branch
+                Key government schemes you should know about:
+                - PM Kisan Samman Nidhi (farmer income support)
+                - Ayushman Bharat (health insurance)
+                - PM Awas Yojana (housing for all)
+                - Sukanya Samriddhi Yojana (girl child savings)
+                - PM Ujjwala Yojana (LPG connections)
+                - MGNREGA (rural employment guarantee)
+                - PM Jan Dhan Yojana (financial inclusion)
+                - Atal Pension Yojana (pension scheme)
+                - PM Mudra Yojana (small business loans)
+                - Skill India Mission (skill development)
                 
                 Communication guidelines:
-                - Always maintain a professional yet friendly tone
-                - Be empathetic to customer's financial situations
-                - Never be aggressive, threatening, or use inappropriate language
-                - If a customer is upset, remain calm and understanding
-                - Speak clearly and concisely
-                - Confirm important details like EMI amount (₹5,000) and due date (15th January)
-                - If customer requests to speak to a human, acknowledge and offer to transfer
+                - Use simple Hindi or regional language the user is comfortable with
+                - Be patient and willing to repeat or explain again
+                - Speak slowly and clearly
+                - Be encouraging and supportive
+                - If you don't know something, say so and suggest official portals
+                - Always mention official government portals for verification
                 
-                Start by greeting the customer, introducing yourself as calling from ABC Bank, 
-                and politely remind them about their pending EMI of ₹5,000.
+                Start by greeting the user warmly in Hindi and asking how you can help them.
             """,
-            
-            # Saaras v3 STT - Converts speech to text
+
+            # ✅ FIX 1: Saaras v3 STT - auto language detection
             stt=sarvam.STT(
-                language="unknown",  # Auto-detect language
+                language="unknown",
                 model="saaras:v3",
-                mode="transcribe"
+                mode="transcribe",
             ),
-            
-            # OpenAI LLM - The "brain" that processes and generates responses
+
+            # OpenAI LLM brain
             llm=openai.LLM(model="gpt-4o"),
-            
-            # Bulbul TTS - Converts text to speech
-            tts = sarvam.TTS(
-                 target_language_code="en-IN",
-                 model="bulbul:v3",
-                 speaker="ishita",
-                 pace=0.9,            # Slightly slower for better understanding
-                 speech_sample_rate=24000  # 8000, 16000, 22050, 24000 Hz (default). v3 REST API also supports 32000, 44100, 48000 Hz
-                    )
-,
+
+            # ✅ FIX 2: Added encoding="wav" to fix MP3/WAV mismatch error
+            tts=sarvam.TTS(
+                target_language_code="hi-IN",
+                model="bulbul:v3",
+                speaker="simran",
+                encoding="wav",        # 👈 KEY FIX — forces WAV output
+                sample_rate=22050,     # 👈 standard sample rate
+            ),
         )
-    
+
     async def on_enter(self):
         """Called when user joins - agent starts the conversation"""
-        self.session.generate_reply()
+        await self.session.generate_reply()  # ✅ FIX 3: added await
 
 
 async def entrypoint(ctx: JobContext):
-    """Main entry point - LiveKit calls this when a user connects"""
+    """Main entry point"""
     logger.info(f"User connected to room: {ctx.room.name}")
-    
-    # Create and start the agent session
+
+    # ✅ FIX 4: wait for participant before starting session
+    await ctx.connect()
+
     session = AgentSession()
+
     await session.start(
-        agent=CollectionAgent(),
-        room=ctx.room
+        agent=GovernmentSchemeAgent(),
+        room=ctx.room,
+        room_input_options=RoomInputOptions(),   # 👈 required in newer versions
     )
 
 
 if __name__ == "__main__":
-    # Run the agent
     cli.run_app(WorkerOptions(entrypoint_fnc=entrypoint))
