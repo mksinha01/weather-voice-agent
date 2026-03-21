@@ -1976,9 +1976,9 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
-    { name = "livekit-agents", extras = ["openai", "sarvam", "silero"], specifier = ">=0.12.0" },
-    { name = "livekit-plugins-openai", specifier = ">=1.5.0" },
-    { name = "livekit-plugins-sarvam", specifier = ">=1.5.0" },
+    { name = "livekit-agents", extras = ["openai", "sarvam", "silero"], specifier = ">=1.0.0" },
+    { name = "livekit-plugins-openai", specifier = ">=1.4.0" },
+    { name = "livekit-plugins-sarvam", specifier = ">=1.4.0" },
     { name = "python-dotenv", specifier = ">=1.2.2" },
     { name = "sarvamai", specifier = ">=0.1.27" },
 ]

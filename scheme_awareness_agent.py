@@ -60,13 +60,10 @@ class GovernmentSchemeAgent(Agent):
             # OpenAI LLM brain
             llm=openai.LLM(model="gpt-4o"),
 
-            # ✅ FIX 2: Added encoding="wav" to fix MP3/WAV mismatch error
             tts=sarvam.TTS(
                 target_language_code="hi-IN",
-                model="bulbul:v3",
-                speaker="simran",
-                encoding="wav",        # 👈 KEY FIX — forces WAV output
-                sample_rate=22050,     # 👈 standard sample rate
+                model="bulbul:v2",
+                speaker="anushka",   # 👈 standard sample rate
             ),
         )
 
