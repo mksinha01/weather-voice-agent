@@ -2,7 +2,8 @@ import logging
 from dotenv import load_dotenv
 from livekit.agents import JobContext, WorkerOptions, cli, RoomInputOptions
 from livekit.agents.voice import Agent, AgentSession
-from livekit.plugins import openai, sarvam
+from livekit.plugins import openai, sarvam, google
+
 
 # Load environment variables
 load_dotenv()
@@ -58,7 +59,9 @@ class GovernmentSchemeAgent(Agent):
             ),
 
             # OpenAI LLM brain
-            llm=openai.LLM(model="gpt-4o"),
+              llm=openai.LLM(model="gpt-4o"),
+            
+            # llm=go=(model="gemini-2.0-flash-exp")
 
             tts=sarvam.TTS(
                 target_language_code="hi-IN",
